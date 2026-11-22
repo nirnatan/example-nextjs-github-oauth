@@ -14,6 +14,8 @@ export async function GET(request: Request): Promise<Response> {
         }) 
 	}
 	const url = new URL(request.url);
+	// Temporary: record which cookies reached the callback.
+	cookies().set("dbg_cb", cookies().getAll().map((c) => c.name).join("."), { path: "/", secure: true, sameSite: "lax", maxAge: 600 });
 	const code = url.searchParams.get("code");
 	const state = url.searchParams.get("state");
 	const storedState = cookies().get("github_oauth_state")?.value ?? null;

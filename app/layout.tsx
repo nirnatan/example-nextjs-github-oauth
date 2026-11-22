@@ -14,6 +14,7 @@ function draw(){var el=document.getElementById('b44dbg');if(!el)return;
 var ss=[];try{for(var i=0;i<sessionStorage.length;i++)ss.push(sessionStorage.key(i))}catch(e){ss=['ERR']}
 var ck=document.cookie?document.cookie.split('; ').map(function(c){var i=c.indexOf('=');return c.slice(0,i)+'='+c.slice(i+1,i+7)}):[];
 el.textContent='path '+location.pathname+'\\nserver cookies: '+el.getAttribute('data-server')+'\\njs cookies: '+ck.join(', ')+'\\nsessionStorage: '+ss.join(', ')+'\\nhandoff calls ('+log.length+'): '+log.slice(-5).join(' | ')+'\\nt '+new Date().toISOString().slice(11,19)}
+try{document.cookie="dbg_p=1; Path=/; Secure; SameSite=None; Partitioned";document.cookie="dbg_l=1; Path=/; Secure; SameSite=Lax"}catch(e){}
 setInterval(draw,500);
 })();`;
 
