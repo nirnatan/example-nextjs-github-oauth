@@ -1,9 +1,12 @@
 import sqlite3 from "better-sqlite3";
 import { SyncDatabase } from "@pilcrowjs/db-query";
 
+import { readFileSync } from "node:fs";
+
 import type { SyncAdapter } from "@pilcrowjs/db-query";
 
 const sqlite = sqlite3("sqlite.db");
+sqlite.exec(readFileSync("setup.sql", "utf8"));
 
 const adapter: SyncAdapter<sqlite3.RunResult> = {
 	query: (statement: string, params: unknown[]): unknown[][] => {

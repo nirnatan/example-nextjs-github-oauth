@@ -1,8 +1,8 @@
 import { GitHub } from "arctic";
+import { appOrigin } from "./origin";
 
-// TODO: Update redirect URI
 export const github = new GitHub(
 	process.env.GITHUB_CLIENT_ID ?? "",
 	process.env.GITHUB_CLIENT_SECRET ?? "",
-	"http://localhost:3000/login/github/callback"
+	`${appOrigin}/login/github/callback`
 );

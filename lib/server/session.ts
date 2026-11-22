@@ -4,6 +4,8 @@ import { sha256 } from "@oslojs/crypto/sha2";
 import { cache } from "react";
 import { cookies } from "next/headers";
 
+import { secureCookies } from "./origin";
+
 import type { User } from "./user";
 
 export function validateSessionToken(token: string): SessionValidationResult {
@@ -66,7 +68,7 @@ export function setSessionTokenCookie(token: string, expiresAt: Date): void {
 	cookies().set("session", token, {
 		httpOnly: true,
 		path: "/",
-		secure: process.env.NODE_ENV === "production",
+		secure: secureCookies,
 		sameSite: "lax",
 		expires: expiresAt
 	});
@@ -76,7 +78,7 @@ export function deleteSessionTokenCookie(): void {
 	cookies().set("session", "", {
 		httpOnly: true,
 		path: "/",
-		secure: process.env.NODE_ENV === "production",
+		secure: secureCookies,
 		sameSite: "lax",
 		maxAge: 0
 	});

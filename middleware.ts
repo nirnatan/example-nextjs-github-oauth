@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+import { appOrigin, secureCookies } from "@/lib/server/origin";
+
 import type { NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
@@ -14,7 +16,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 				maxAge: 60 * 60 * 24 * 30,
 				sameSite: "lax",
 				httpOnly: true,
-				secure: process.env.NODE_ENV === "production"
+				secure: secureCookies
 			});
 		}
 		return response;
@@ -36,7 +38,8 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 			status: 403
 		});
 	}
-	if (origin.host !== hostHeader) {
+	// The preview proxy rewrites Host, so the public origin is checked too.
+	if (origin.host !== hostHeader && origin.origin !== appOrigin) {
 		return new NextResponse(null, {
 			status: 403
 		});

@@ -2,6 +2,7 @@ import { generateState } from "arctic";
 import { github } from "@/lib/server/oauth";
 import { cookies } from "next/headers";
 import { globalGETRateLimit } from "@/lib/server/request";
+import { secureCookies } from "@/lib/server/origin";
 
 export async function GET(): Promise<Response> {
     if (!globalGETRateLimit()) {
@@ -14,7 +15,7 @@ export async function GET(): Promise<Response> {
 
 	cookies().set("github_oauth_state", state, {
 		path: "/",
-		secure: process.env.NODE_ENV === "production",
+		secure: secureCookies,
 		httpOnly: true,
 		maxAge: 60 * 10,
 		sameSite: "lax"

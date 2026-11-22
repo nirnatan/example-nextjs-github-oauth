@@ -1,0 +1,9 @@
+{
+  "previewPort": 3000,
+  "healthPath": "/login",
+  "startCommand": "docker compose -f docker-compose.base44.yml up -d",
+  "secrets": [
+    {"name": "GITHUB_CLIENT_ID", "description": "Client ID of a GitHub OAuth app (GitHub > Settings > Developer settings > OAuth Apps). Its callback URL is https://3000-$BASE44_PUBLIC_HOST_SUFFIX/login/github/callback", "requiredAtBoot": false},
+    {"name": "GITHUB_CLIENT_SECRET", "description": "Client secret of the same GitHub OAuth app", "requiredAtBoot": false}
+  ]
+}

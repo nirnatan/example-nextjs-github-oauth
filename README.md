@@ -32,3 +32,9 @@ pnpm dev
 ## Notes
 
 - TODO: Update redirect URI
+
+## Running in a Base44 (Base Code) sandbox
+
+`docker-compose.base44.yml` and `.base44/environment.json` start the app on port 3000. The database is created on first start.
+
+Register the GitHub OAuth app's callback as `https://3000-$BASE44_PUBLIC_HOST_SUFFIX/login/github/callback`, then set `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` as app secrets. Outside the sandbox, set `APP_ORIGIN` to override `http://localhost:3000`.
